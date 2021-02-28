@@ -60,7 +60,7 @@ Musiałem tutaj zamazać, bo nie mądrze jest dawać to co tutaj jest na public,
 ![](assets/proxmox/thenetip2.png)  
 ###### Film - The Net 1995
 
-### A nasz VMAC niech będzie 02:00:00:ab:cd:ef
+### A nasz VMAC niech będzie ```02:00:00:ab:cd:ef```
 
 ### Lecimy z konfiguracją sieci VMki
 1. Wchodzimy w zakładkę Sprzęt naszej VMki, i edytujemy interfejs sieciowy. Wpisujemy tutaj nasz vmac, resztę zostawiamy. Bridge musi być na vmbr0  

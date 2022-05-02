@@ -65,6 +65,10 @@ For example:
 # on wordpress
 sudo systemd-resolve --set-mdns=yes --interface ens18
 ```
+You can verify changes with
+```sh
+resolvectl status
+```
 
 ## Without systemd-resolved
 If you don't have systemd-resolved just install and enable Avahi on hosts:

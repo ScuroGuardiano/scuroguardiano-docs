@@ -214,7 +214,7 @@ A oto wyniki:
 Jak widać, o ile dla pierwszych stron czas jest akceptowalny, tak dla wyższych stron czas rośnie bardzo szybko. Przy wyszukiwaniu 3 pasujących oraz 2 niepasujących tagów dla strony 10001 czas wykonywania przewyższył 60 sekund. Więc o ile dla pierwszych stron czas jeszcze jest akceptowalny, tak dla wyższych stron jest nieakceptowalny. Potrzebny jest szybszy sposób.
 
 ### WHERE (SELECT COUNT(*) ... IN (tags)) = tagsCount
-Drugi sposób, który szybko odrzuciłem to użycie takiego zapytania:
+Drugi sposób, który przyszedł mi do głowy, to użycie takiego oto zapytania:
 
 ```sql
 SELECT * FROM "Images"
@@ -225,7 +225,8 @@ SELECT * FROM "Images"
 ```
 
 
-Szybko go odrzuciłem, gdyż wydawał mi się strasznie wolny i tak też jest. Nie będę robił dla niego testów, oto `EXPLAIN ANALYZE` do zapytania powyżej, `tag1` oraz `tag2` są **najmniej popularnymi tagami**:
+Szybko go odrzuciłem, gdyż wydawał mi się strasznie wolny. Mamy tutaj zagnieżdżone zapytanie z COUNT, to nie miało prawa być szybkie.
+Nie będę robił dla niego testów, oto `EXPLAIN ANALYZE` do zapytania powyżej, `tag1` oraz `tag2` są **najmniej popularnymi tagami**:
 ```
 Limit  (cost=0.43..44668.32 rows=20 width=807) (actual time=71279.852..71279.853 rows=0 loops=1)
 "  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..113869607.57 rows=50985 width=807) (actual time=71279.852..71279.852 rows=0 loops=1)"

@@ -623,6 +623,8 @@ to wykorzystuje indeks i jest bardzo szybkie, czas wykonywania spada do ułamka 
 
 > UWAGA! Wszekie modyfikacji konfiguracji za pomocą `SET` działają tylko w obrębie danej sesji. Aby ustawić je na stałe trzeba zmodyfikować plik `postgresql.conf` znajdujący się w katalogu danych albo w inny sposób opisany [tutaj](https://www.postgresql.org/docs/current/config-setting.html).
 
+## Dane
+Dane z testów użyte do artykułu znajdują się [tutaj](https://github.com/ScuroGuardiano/scuroguardiano-docs/tree/master/assets/postgres-searching-by-tags/data).
 
 ## Bonus: głupi pomysł z liczbami pierwszymi
 Po drodze wpadłem jeszcze na pomysł, żeby każdemu tagowi przypisać kolejną liczbę pierwszą, liczyć ich iloczyn i na kolumnie o typie `NUMERIC` w obrazkach zapisywać ją. Potem, żeby znaleźć pasujące tagi wystarczyło zrobić `WHERE TagsPrimeProduct % (@tagprime1 * @tagprime2 * @tagprime3) = 0`. W mojej głowie to była operacja O(1), aczkolwiek nie uwzględniłem tego, że:

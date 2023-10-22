@@ -1,0 +1,155 @@
+Queries the same as in where_exists.txt
+
+1 most common:
+
+Page 1001:
+Limit  (cost=17110.00..17126.11 rows=20 width=807) (actual time=77.170..81.133 rows=20 loops=1)
+  ->  Gather Merge  (cost=1001.03..5017028.72 rows=6227621 width=807) (actual time=15.651..80.646 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Nested Loop  (cost=1.01..4297206.71 rows=2594842 width=807) (actual time=0.041..24.019 rows=6703 loops=3)
+"              ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1168389.42 rows=4247045 width=807) (actual time=0.008..3.083 rows=11261 loops=3)"
+"              ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag""  (cost=0.57..4.07 rows=21 width=8) (actual time=0.002..0.002 rows=1 loops=33783)"
+"                    Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag1'::text))"
+                    Heap Fetches: 0
+Planning Time: 0.294 ms
+Execution Time: 81.194 ms
+
+Page 10001:
+
+Limit  (cost=162106.83..162122.94 rows=20 width=807) (actual time=820.541..827.343 rows=20 loops=1)
+  ->  Gather Merge  (cost=1001.03..5017028.72 rows=6227621 width=807) (actual time=23.551..816.089 rows=200040 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Nested Loop  (cost=1.01..4297206.71 rows=2594842 width=807) (actual time=3.920..328.765 rows=66710 loops=3)
+"              ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1168389.42 rows=4247045 width=807) (actual time=0.014..43.828 rows=111856 loops=3)"
+"              ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag""  (cost=0.57..4.07 rows=21 width=8) (actual time=0.002..0.002 rows=1 loops=335568)"
+"                    Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag1'::text))"
+                    Heap Fetches: 0
+Planning Time: 0.284 ms
+JIT:
+  Functions: 14
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 1.544 ms, Inlining 0.000 ms, Optimization 1.042 ms, Emission 16.608 ms, Total 19.195 ms"
+Execution Time: 827.810 ms
+
+3 most common:
+
+Page 1001:
+Limit  (cost=120500.08..120619.58 rows=20 width=807) (actual time=254.374..260.680 rows=20 loops=1)
+  ->  Gather Merge  (cost=1002.17..6765970.10 rows=1132232 width=807) (actual time=26.909..251.812 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Nested Loop  (cost=2.15..6634282.41 rows=471763 width=807) (actual time=5.121..182.617 rows=6683 loops=3)
+              ->  Nested Loop  (cost=1.58..6054076.07 rows=772147 width=823) (actual time=5.097..166.299 rows=11142 loops=3)
+                    ->  Nested Loop  (cost=1.01..4905721.79 rows=1472269 width=815) (actual time=5.078..135.152 rows=21556 loops=3)
+"                          ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1168389.42 rows=4247045 width=807) (actual time=0.019..27.039 rows=58853 loops=3)"
+"                          ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_2""  (cost=0.57..4.29 rows=12 width=8) (actual time=0.002..0.002 rows=0 loops=176560)"
+"                                Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag3'::text))"
+                                Heap Fetches: 0
+"                    ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_1""  (cost=0.57..4.35 rows=18 width=8) (actual time=0.001..0.001 rows=1 loops=64667)"
+"                          Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag2'::text))"
+                          Heap Fetches: 0
+"              ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag""  (cost=0.57..4.38 rows=21 width=8) (actual time=0.001..0.001 rows=1 loops=33425)"
+"                    Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag1'::text))"
+                    Heap Fetches: 0
+Planning Time: 1.306 ms
+JIT:
+  Functions: 32
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 2.499 ms, Inlining 0.000 ms, Optimization 1.122 ms, Emission 22.174 ms, Total 25.795 ms"
+Execution Time: 261.568 ms
+
+Page 10001:
+Limit  (cost=1195981.28..1196100.77 rows=20 width=807) (actual time=2373.404..2382.911 rows=20 loops=1)
+  ->  Gather Merge  (cost=1002.17..6765970.10 rows=1132232 width=807) (actual time=158.618..2285.701 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Nested Loop  (cost=2.15..6634282.41 rows=471763 width=807) (actual time=91.993..1821.199 rows=66710 loops=3)
+              ->  Nested Loop  (cost=1.58..6054076.07 rows=772147 width=823) (actual time=91.969..1648.971 rows=111696 loops=3)
+                    ->  Nested Loop  (cost=1.01..4905721.79 rows=1472269 width=815) (actual time=91.948..1321.274 rows=216778 loops=3)
+"                          ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1168389.42 rows=4247045 width=807) (actual time=0.021..211.914 rows=591122 loops=3)"
+"                          ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_2""  (cost=0.57..4.29 rows=12 width=8) (actual time=0.002..0.002 rows=0 loops=1773365)"
+"                                Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag3'::text))"
+                                Heap Fetches: 0
+"                    ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_1""  (cost=0.57..4.35 rows=18 width=8) (actual time=0.001..0.001 rows=1 loops=650334)"
+"                          Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag2'::text))"
+                          Heap Fetches: 0
+"              ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag""  (cost=0.57..4.38 rows=21 width=8) (actual time=0.001..0.001 rows=1 loops=335088)"
+"                    Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag1'::text))"
+                    Heap Fetches: 0
+Planning Time: 1.265 ms
+JIT:
+  Functions: 32
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 2.486 ms, Inlining 110.355 ms, Optimization 141.527 ms, Emission 115.410 ms, Total 369.778 ms"
+Execution Time: 2383.852 ms
+
+3 most common and 2 most common negated:
+
+Page 1001:
+
+Limit  (cost=144478.43..144621.90 rows=20 width=807) (actual time=613.841..622.377 rows=20 loops=1)
+  ->  Gather Merge  (cost=1003.31..7652000.57 rows=1066526 width=807) (actual time=29.908..613.250 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Nested Loop Anti Join  (cost=3.29..7527896.98 rows=444386 width=807) (actual time=6.728..465.849 rows=6689 loops=3)
+              ->  Nested Loop Anti Join  (cost=2.72..7116250.14 rows=457870 width=807) (actual time=6.691..450.789 rows=10193 loops=3)
+                    ->  Nested Loop  (cost=2.15..6692539.19 rows=471763 width=807) (actual time=6.669..427.162 rows=15947 loops=3)
+                          ->  Nested Loop  (cost=1.58..6107799.27 rows=772147 width=823) (actual time=6.651..387.389 rows=26704 loops=3)
+                                ->  Nested Loop  (cost=1.01..4949359.99 rows=1472269 width=815) (actual time=6.631..311.197 rows=51783 loops=3)
+"                                      ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1168389.42 rows=4247045 width=807) (actual time=0.023..58.822 rows=141253 loops=3)"
+"                                      ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_2""  (cost=0.57..4.41 rows=12 width=8) (actual time=0.002..0.002 rows=0 loops=423760)"
+"                                            Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag3'::text))"
+                                            Heap Fetches: 0
+"                                ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_1""  (cost=0.57..4.47 rows=18 width=8) (actual time=0.001..0.001 rows=1 loops=155350)"
+"                                      Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag2'::text))"
+                                      Heap Fetches: 0
+"                          ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag""  (cost=0.57..4.50 rows=21 width=8) (actual time=0.001..0.001 rows=1 loops=80112)"
+"                                Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag1'::text))"
+                                Heap Fetches: 0
+"                    ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_3""  (cost=0.57..4.41 rows=12 width=8) (actual time=0.001..0.001 rows=0 loops=47841)"
+"                          Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag4'::text))"
+                          Heap Fetches: 0
+"              ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_4""  (cost=0.57..4.41 rows=12 width=8) (actual time=0.001..0.001 rows=0 loops=30578)"
+"                    Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag5'::text))"
+                    Heap Fetches: 0
+Planning Time: 2.761 ms
+JIT:
+  Functions: 50
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 2.981 ms, Inlining 0.000 ms, Optimization 1.556 ms, Emission 26.638 ms, Total 31.176 ms"
+Execution Time: 623.357 ms
+
+Page 10001:
+Limit  (cost=1435754.50..1435897.98 rows=20 width=807) (actual time=5653.972..5663.235 rows=20 loops=1)
+  ->  Gather Merge  (cost=1003.31..7652000.57 rows=1066526 width=807) (actual time=173.348..5543.746 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Nested Loop Anti Join  (cost=3.29..7527896.98 rows=444386 width=807) (actual time=102.215..4423.915 rows=66689 loops=3)
+              ->  Nested Loop Anti Join  (cost=2.72..7116250.14 rows=457870 width=807) (actual time=102.180..4274.868 rows=101839 loops=3)
+                    ->  Nested Loop  (cost=2.15..6692539.19 rows=471763 width=807) (actual time=102.158..4040.932 rows=158844 loops=3)
+                          ->  Nested Loop  (cost=1.58..6107799.27 rows=772147 width=823) (actual time=102.138..3647.156 rows=265964 loops=3)
+                                ->  Nested Loop  (cost=1.01..4949359.99 rows=1472269 width=815) (actual time=102.118..2896.113 rows=516959 loops=3)
+"                                      ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1168389.42 rows=4247045 width=807) (actual time=0.023..473.024 rows=1411353 loops=3)"
+"                                      ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_2""  (cost=0.57..4.41 rows=12 width=8) (actual time=0.001..0.001 rows=0 loops=4234058)"
+"                                            Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag3'::text))"
+                                            Heap Fetches: 0
+"                                ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_1""  (cost=0.57..4.47 rows=18 width=8) (actual time=0.001..0.001 rows=1 loops=1550878)"
+"                                      Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag2'::text))"
+                                      Heap Fetches: 0
+"                          ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag""  (cost=0.57..4.50 rows=21 width=8) (actual time=0.001..0.001 rows=1 loops=797892)"
+"                                Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag1'::text))"
+                                Heap Fetches: 0
+"                    ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_3""  (cost=0.57..4.41 rows=12 width=8) (actual time=0.001..0.001 rows=0 loops=476531)"
+"                          Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag4'::text))"
+                          Heap Fetches: 0
+"              ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag"" ""ImageTag_4""  (cost=0.57..4.41 rows=12 width=8) (actual time=0.001..0.001 rows=0 loops=305518)"
+"                    Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = 'tag5'::text))"
+                    Heap Fetches: 0
+Planning Time: 2.925 ms
+JIT:
+  Functions: 50
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 3.110 ms, Inlining 106.406 ms, Optimization 165.179 ms, Emission 148.537 ms, Total 423.233 ms"
+Execution Time: 5664.344 ms

@@ -1,0 +1,417 @@
+1 most common:
+
+EXPLAIN ANALYZE SELECT * FROM "Images"
+    WHERE to_tsvector('simple', "TagsStr") @@ to_tsquery('simple', 'tag1')
+    ORDER BY "Id"
+    OFFSET @page * 20
+    LIMIT 20;
+
+
+Page 1:
+
+Limit  (cost=0.43..66.01 rows=20 width=808) (actual time=0.751..3.611 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.750..3.609 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 6
+Planning Time: 0.431 ms
+Execution Time: 3.650 ms
+
+Limit  (cost=0.43..66.01 rows=20 width=808) (actual time=0.048..0.497 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.047..0.495 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 6
+Planning Time: 0.170 ms
+Execution Time: 0.523 ms
+
+Limit  (cost=0.43..66.01 rows=20 width=808) (actual time=0.044..0.432 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.044..0.431 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 6
+Planning Time: 0.179 ms
+Execution Time: 0.452 ms
+
+Limit  (cost=0.43..66.01 rows=20 width=808) (actual time=0.046..0.441 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.045..0.439 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 6
+Planning Time: 0.191 ms
+Execution Time: 0.463 ms
+
+Limit  (cost=0.43..66.01 rows=20 width=808) (actual time=0.056..0.560 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.056..0.558 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 6
+Planning Time: 0.206 ms
+Execution Time: 0.587 ms
+
+
+Page 100:
+
+Limit  (cost=6558.34..6623.92 rows=20 width=808) (actual time=46.944..47.356 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.044..47.303 rows=2020 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 972
+Planning Time: 0.175 ms
+Execution Time: 47.389 ms
+
+Limit  (cost=6558.34..6623.92 rows=20 width=808) (actual time=47.610..48.054 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.045..48.002 rows=2020 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 972
+Planning Time: 0.164 ms
+Execution Time: 48.096 ms
+
+Limit  (cost=6558.34..6623.92 rows=20 width=808) (actual time=47.106..47.522 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.060..47.470 rows=2020 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 972
+Planning Time: 0.185 ms
+Execution Time: 47.558 ms
+
+Limit  (cost=6558.34..6623.92 rows=20 width=808) (actual time=46.644..47.070 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.047..47.018 rows=2020 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 972
+Planning Time: 0.220 ms
+Execution Time: 47.108 ms
+
+Limit  (cost=6558.34..6623.92 rows=20 width=808) (actual time=47.977..48.412 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=6944388 width=808) (actual time=0.045..48.360 rows=2020 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+        Rows Removed by Filter: 972
+Planning Time: 0.184 ms
+Execution Time: 48.448 ms
+
+
+Page 1000:
+
+Limit  (cost=64393.99..64457.38 rows=20 width=808) (actual time=850.176..856.115 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=23.487..855.588 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=1.334..335.725 rows=6700 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 3224
+Planning Time: 0.189 ms
+Execution Time: 856.165 ms
+
+Limit  (cost=64393.99..64457.38 rows=20 width=808) (actual time=430.521..436.650 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=16.998..436.133 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=0.536..168.417 rows=6701 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 3224
+Planning Time: 0.190 ms
+Execution Time: 436.706 ms
+
+Limit  (cost=64393.99..64457.38 rows=20 width=808) (actual time=423.947..429.896 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=16.817..429.385 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=0.434..165.628 rows=6701 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 3224
+Planning Time: 0.185 ms
+Execution Time: 429.953 ms
+
+Limit  (cost=64393.99..64457.38 rows=20 width=808) (actual time=426.752..433.104 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=16.508..432.595 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=0.426..168.642 rows=6702 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 3224
+Planning Time: 0.174 ms
+Execution Time: 433.172 ms
+
+Limit  (cost=64393.99..64457.38 rows=20 width=808) (actual time=419.645..425.439 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=16.621..424.934 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=0.440..163.601 rows=6701 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 3224
+Planning Time: 0.173 ms
+Execution Time: 425.489 ms
+
+Page 10000:
+
+Limit  (cost=634935.77..634999.17 rows=20 width=808) (actual time=5172.039..5184.122 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=96.766..5140.616 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=51.907..2094.734 rows=66697 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 32054
+Planning Time: 0.175 ms
+JIT:
+  Functions: 8
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 2.929 ms, Inlining 94.345 ms, Optimization 60.708 ms, Emission 37.612 ms, Total 195.594 ms"
+Execution Time: 5184.445 ms
+
+Limit  (cost=634935.77..634999.17 rows=20 width=808) (actual time=4257.518..4267.943 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=97.749..4222.227 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=52.074..1722.757 rows=66697 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 32054
+Planning Time: 2.954 ms
+JIT:
+  Functions: 8
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 1.189 ms, Inlining 91.222 ms, Optimization 61.590 ms, Emission 38.822 ms, Total 192.822 ms"
+Execution Time: 4268.339 ms
+
+Limit  (cost=634935.77..634999.17 rows=20 width=808) (actual time=4084.570..4095.073 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=96.928..4051.451 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=52.544..1645.360 rows=66697 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 32054
+Planning Time: 0.202 ms
+JIT:
+  Functions: 8
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 1.151 ms, Inlining 92.172 ms, Optimization 62.979 ms, Emission 39.229 ms, Total 195.530 ms"
+Execution Time: 4095.407 ms
+
+Limit  (cost=634935.77..634999.17 rows=20 width=808) (actual time=4121.003..4131.456 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=97.489..4086.349 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=52.933..1665.753 rows=66697 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 32054
+Planning Time: 0.223 ms
+JIT:
+  Functions: 8
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 1.078 ms, Inlining 93.115 ms, Optimization 65.202 ms, Emission 38.838 ms, Total 198.234 ms"
+Execution Time: 4131.788 ms
+
+Limit  (cost=634935.77..634999.17 rows=20 width=808) (actual time=4150.674..4161.179 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..22012464.44 rows=6944388 width=808) (actual time=95.246..4116.998 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=2893495 width=808) (actual time=51.376..1680.051 rows=66697 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'''::tsquery)"
+              Rows Removed by Filter: 32054
+Planning Time: 0.204 ms
+JIT:
+  Functions: 8
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 1.166 ms, Inlining 92.085 ms, Optimization 61.482 ms, Emission 38.021 ms, Total 192.754 ms"
+Execution Time: 4161.524 ms
+
+3 most common:
+EXPLAIN ANALYZE SELECT * FROM "Images"
+    WHERE to_tsvector('simple', "TagsStr") @@ to_tsquery('simple', 'tag1 & tag2 & tag3')
+    ORDER BY "Id"
+    OFFSET @page * 20
+    LIMIT 20;
+
+
+Page 1:
+
+Limit  (cost=0.43..294.53 rows=20 width=808) (actual time=0.062..2.216 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=1548483 width=808) (actual time=0.061..2.213 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+        Rows Removed by Filter: 97
+Planning Time: 0.255 ms
+Execution Time: 2.246 ms
+
+Limit  (cost=0.43..294.53 rows=20 width=808) (actual time=0.044..1.967 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=1548483 width=808) (actual time=0.043..1.965 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+        Rows Removed by Filter: 97
+Planning Time: 0.167 ms
+Execution Time: 1.994 ms
+
+Limit  (cost=0.43..294.53 rows=20 width=808) (actual time=0.047..1.961 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=1548483 width=808) (actual time=0.046..1.959 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+        Rows Removed by Filter: 97
+Planning Time: 0.169 ms
+Execution Time: 1.990 ms
+
+Limit  (cost=0.43..294.53 rows=20 width=808) (actual time=0.044..1.865 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=1548483 width=808) (actual time=0.043..1.863 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+        Rows Removed by Filter: 97
+Planning Time: 0.168 ms
+Execution Time: 1.888 ms
+
+Limit  (cost=0.43..294.53 rows=20 width=808) (actual time=0.045..2.011 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..22770308.00 rows=1548483 width=808) (actual time=0.044..2.008 rows=20 loops=1)"
+"        Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+        Rows Removed by Filter: 97
+Planning Time: 0.171 ms
+Execution Time: 2.037 ms
+
+Page 100:
+
+Limit  (cost=28625.74..28902.00 rows=20 width=808) (actual time=116.837..125.709 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=19.639..125.653 rows=2020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=0.591..82.855 rows=693 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 3541
+Planning Time: 0.180 ms
+Execution Time: 125.758 ms
+
+Limit  (cost=28625.74..28902.00 rows=20 width=808) (actual time=106.361..113.661 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=19.181..113.609 rows=2020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=0.532..72.457 rows=693 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 3574
+Planning Time: 0.174 ms
+Execution Time: 113.711 ms
+
+Limit  (cost=28625.74..28902.00 rows=20 width=808) (actual time=105.642..114.153 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=19.240..114.099 rows=2020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=0.496..72.708 rows=702 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 3624
+Planning Time: 0.180 ms
+Execution Time: 114.210 ms
+
+Limit  (cost=28625.74..28902.00 rows=20 width=808) (actual time=105.194..112.773 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=19.552..112.719 rows=2020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=0.501..71.521 rows=693 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 3574
+Planning Time: 0.185 ms
+Execution Time: 112.834 ms
+
+Limit  (cost=28625.74..28902.00 rows=20 width=808) (actual time=115.500..123.271 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=21.559..123.213 rows=2020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=0.650..79.016 rows=726 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 3720
+Planning Time: 0.244 ms
+Execution Time: 123.338 ms
+
+Page 1000:
+
+Limit  (cost=277253.32..277529.57 rows=20 width=808) (actual time=896.618..905.460 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=24.590..901.820 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=3.322..707.517 rows=6689 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 36202
+Planning Time: 0.177 ms
+JIT:
+  Functions: 8
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 1.146 ms, Inlining 0.000 ms, Optimization 0.794 ms, Emission 10.464 ms, Total 12.404 ms"
+Execution Time: 905.813 ms
+
+Limit  (cost=277253.32..277529.57 rows=20 width=808) (actual time=911.905..919.951 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=26.060..916.140 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=3.434..704.544 rows=6685 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 36152
+Planning Time: 0.189 ms
+JIT:
+  Functions: 8
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 1.154 ms, Inlining 0.000 ms, Optimization 0.796 ms, Emission 10.654 ms, Total 12.605 ms"
+Execution Time: 920.300 ms
+
+Limit  (cost=277253.32..277529.57 rows=20 width=808) (actual time=903.723..911.914 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=25.716..907.928 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=3.293..707.963 rows=6690 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 36193
+Planning Time: 0.230 ms
+JIT:
+  Functions: 8
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 1.091 ms, Inlining 0.000 ms, Optimization 0.864 ms, Emission 10.314 ms, Total 12.269 ms"
+Execution Time: 912.269 ms
+
+Limit  (cost=277253.32..277529.57 rows=20 width=808) (actual time=902.906..912.602 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=25.227..909.025 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=3.272..700.874 rows=6696 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 36231
+Planning Time: 0.210 ms
+JIT:
+  Functions: 8
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 1.252 ms, Inlining 0.000 ms, Optimization 0.816 ms, Emission 9.998 ms, Total 12.067 ms"
+Execution Time: 913.025 ms
+
+Limit  (cost=277253.32..277529.57 rows=20 width=808) (actual time=919.857..929.505 rows=20 loops=1)
+  ->  Gather Merge  (cost=1000.46..21389643.12 rows=1548483 width=808) (actual time=25.525..925.522 rows=20020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+"        ->  Parallel Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..21209909.74 rows=645201 width=808) (actual time=3.290..718.771 rows=6693 loops=3)"
+"              Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+              Rows Removed by Filter: 36215
+Planning Time: 0.196 ms
+JIT:
+  Functions: 8
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 1.276 ms, Inlining 0.000 ms, Optimization 0.827 ms, Emission 10.383 ms, Total 12.486 ms"
+Execution Time: 929.966 ms
+
+Page 10000:
+
+Limit  (cost=2623067.10..2623069.43 rows=20 width=808) (actual time=55630.355..55712.360 rows=20 loops=1)
+  ->  Gather Merge  (cost=2599732.14..2750289.55 rows=1290402 width=808) (actual time=55530.819..55669.924 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Sort  (cost=2598732.11..2600345.12 rows=645201 width=808) (actual time=55513.071..55534.823 rows=66729 loops=3)
+"              Sort Key: ""Id"""
+              Sort Method: external merge  Disk: 396688kB
+              Worker 0:  Sort Method: external merge  Disk: 394264kB
+              Worker 1:  Sort Method: external merge  Disk: 393520kB
+"              ->  Parallel Seq Scan on ""Images""  (cost=0.00..2077769.19 rows=645201 width=808) (actual time=53.166..54017.939 rows=535062 loops=3)"
+"                    Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+                    Rows Removed by Filter: 2861924
+Planning Time: 0.186 ms
+JIT:
+  Functions: 8
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 1.101 ms, Inlining 91.398 ms, Optimization 64.508 ms, Emission 38.463 ms, Total 195.471 ms"
+Execution Time: 55773.857 ms
+
+Limit  (cost=2623067.10..2623069.43 rows=20 width=808) (actual time=54955.205..55035.327 rows=20 loops=1)
+  ->  Gather Merge  (cost=2599732.14..2750289.55 rows=1290402 width=808) (actual time=54854.343..54988.403 rows=200020 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        ->  Sort  (cost=2598732.11..2600345.12 rows=645201 width=808) (actual time=54820.212..54840.537 rows=66703 loops=3)
+"              Sort Key: ""Id"""
+              Sort Method: external merge  Disk: 397984kB
+              Worker 0:  Sort Method: external merge  Disk: 393296kB
+              Worker 1:  Sort Method: external merge  Disk: 393184kB
+"              ->  Parallel Seq Scan on ""Images""  (cost=0.00..2077769.19 rows=645201 width=808) (actual time=50.673..53374.860 rows=535062 loops=3)"
+"                    Filter: (to_tsvector('simple'::regconfig, ""TagsStr"") @@ '''tag1'' & ''tag2'' & ''tag3'''::tsquery)"
+                    Rows Removed by Filter: 2861924
+Planning Time: 0.203 ms
+JIT:
+  Functions: 8
+"  Options: Inlining true, Optimization true, Expressions true, Deforming true"
+"  Timing: Generation 1.040 ms, Inlining 94.265 ms, Optimization 62.088 ms, Emission 35.597 ms, Total 192.989 ms"
+Execution Time: 55097.196 ms

@@ -1,0 +1,70 @@
+Queries the same as in array_string.txt
+
+1 most common:
+
+Page 1001:
+
+Limit  (cost=4113.76..4117.87 rows=20 width=807) (actual time=20.579..20.594 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1253330.31 rows=6093999 width=807) (actual time=0.030..20.092 rows=20020 loops=1)"
+"        Filter: (""TagsArr"" @> '{tag1}'::text[])"
+        Rows Removed by Filter: 13613
+Planning Time: 0.251 ms
+Execution Time: 20.632 ms
+
+Page 10001:
+
+Limit  (cost=41133.68..41137.80 rows=20 width=807) (actual time=190.588..190.605 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1253330.31 rows=6093999 width=807) (actual time=0.023..185.607 rows=200020 loops=1)"
+"        Filter: (""TagsArr"" @> '{tag1}'::text[])"
+        Rows Removed by Filter: 135361
+Planning Time: 0.205 ms
+Execution Time: 190.641 ms
+
+
+3 most common:
+
+Page 1001:
+
+Limit  (cost=21508.76..21530.27 rows=20 width=807) (actual time=119.730..119.840 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1253330.31 rows=1165437 width=807) (actual time=0.041..119.269 rows=20020 loops=1)"
+"        Filter: (""TagsArr"" @> '{tag1,tag2,tag3}'::text[])"
+        Rows Removed by Filter: 156298
+Planning Time: 0.201 ms
+Execution Time: 119.876 ms
+
+Page 10001:
+
+Limit  (cost=215083.68..215105.19 rows=20 width=807) (actual time=1187.639..1187.766 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1253330.31 rows=1165437 width=807) (actual time=0.059..1178.534 rows=200020 loops=1)"
+"        Filter: (""TagsArr"" @> '{tag1,tag2,tag3}'::text[])"
+        Rows Removed by Filter: 1572529
+Planning Time: 0.162 ms
+JIT:
+  Functions: 4
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 0.261 ms, Inlining 0.000 ms, Optimization 0.197 ms, Emission 3.309 ms, Total 3.768 ms"
+Execution Time: 1188.104 ms
+
+
+3 most common and 2 most common negated:
+
+Page 1001:
+Limit  (cost=25103.17..25128.27 rows=20 width=807) (actual time=147.962..148.104 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1278812.57 rows=1018863 width=807) (actual time=0.059..147.531 rows=20020 loops=1)"
+"        Filter: ((""TagsArr"" @> '{tag1,tag2,tag3}'::text[]) AND (NOT (""TagsArr"" @> '{tag4,tag5}'::text[])))"
+        Rows Removed by Filter: 183492
+Planning Time: 0.225 ms
+Execution Time: 148.142 ms
+
+Page 10001:
+Limit  (cost=251052.84..251077.94 rows=20 width=807) (actual time=1440.025..1440.174 rows=20 loops=1)
+"  ->  Index Scan using ""PK_Images"" on ""Images""  (cost=0.43..1278812.57 rows=1018863 width=807) (actual time=0.065..1430.495 rows=200040 loops=1)"
+"        Filter: ((""TagsArr"" @> '{tag1,tag2,tag3}'::text[]) AND (NOT (""TagsArr"" @> '{tag4,tag5}'::text[])))"
+        Rows Removed by Filter: 1827576
+Planning Time: 0.233 ms
+JIT:
+  Functions: 4
+"  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+"  Timing: Generation 0.248 ms, Inlining 0.000 ms, Optimization 0.183 ms, Emission 3.728 ms, Total 4.159 ms"
+Execution Time: 1440.490 ms
+

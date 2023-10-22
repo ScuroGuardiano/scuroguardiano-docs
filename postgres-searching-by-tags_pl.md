@@ -234,7 +234,7 @@ Limit  (cost=0.43..44668.32 rows=20 width=807) (actual time=71279.852..71279.853
         SubPlan 1
           ->  Aggregate  (cost=9.17..9.18 rows=1 width=8) (actual time=0.003..0.003 rows=1 loops=10190959)
 "                ->  Index Only Scan using ""PK_ImageTag"" on ""ImageTag""  (cost=0.57..9.17 rows=1 width=0) (actual time=0.003..0.003 rows=0 loops=10190959)"
-"                      Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = ANY ('{cycles,skype}'::text[])))"
+"                      Index Cond: ((""ImagesId"" = ""Images"".""Id"") AND (""TagsName"" = ANY ('{tag1,tag2}'::text[])))"
                       Heap Fetches: 0
 Planning Time: 0.125 ms
 Execution Time: 71279.911 ms

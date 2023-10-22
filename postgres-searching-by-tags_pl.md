@@ -602,6 +602,15 @@ to wykorzystuje indeks i jest bardzo szybkie, czas wykonywania spada do ułamka 
   ```sql
   CREATE INDEX tags_index ON "Images" USING GIN ("TagsArr");
   ```
+* Wyszukujesz po niej tak:
+  ```sql
+  SELECT * FROM "Images"
+                WHERE "TagsArr" @> array[11315, 4814, 26366]
+                AND NOT "TagsArr" @> array[21060, 24474]
+                ORDER BY "Id"
+                OFFSET (@page - 1) * 20
+                LIMIT 20;
+  ```
 * Dla szybszej paginacji z sortowaniem po indeksie możesz zrobić CLUSTER tabeli, przykład dla primary keya:
   ```sql
   CLUSTER "Images" USING "PK_Images";
